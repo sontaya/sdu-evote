@@ -1,0 +1,255 @@
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">ข้อมูลกิจกรรม</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">ข้อมูลกิจกรรม</li>
+            </ol> 
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <div class="row">
+              <div class="col-6">
+                  
+              </div>
+          </div>
+
+          <div class="col-6">
+              <div class="card">
+                <div class="card-header">
+                   <h3 class="card-title">ข้อมูลผู้สมัคร</h3>
+                   <div class="card-tools">
+                     <a class="btn btn-primary btn-sm" href="#" data-toggle="modal" data-target="#addModal">
+                              <i class="fas fa-plus">
+                              </i>
+                              Add
+                          </a>           
+            
+                  </div>
+                </div>
+              <div class="card-body p-0">
+              
+
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                     <th valign="center" class="text-center">#</th>                     
+                     <th valign="center" class="text-center">หมายเลข</th>
+                      <th >ชื่อ - นามสกุล</th>
+                      <th >หน่วยงาน</th>                      
+                      <th class="text-center">สถานะ</th>
+                      <th class="text-center">จัดการ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                     <?php 
+                     $i=1;
+                     foreach ($candidates as $key => $r){ ?>
+                      <tr>
+                      <td style="vertical-align:middle;text-align:center;"><?php echo $r->id;;?></td>
+                      
+                        <td style="vertical-align:middle;text-align:center;"><?php echo $r->c_number;?></td>
+                        <td>
+                        <?php echo $r->fullname;?>
+                        </td>
+                         <td>
+                        <?php echo $r->department;?>
+                        </td>
+                        <td><?php echo $r->status;?></td>
+                        <td style="vertical-align:middle;text-align:center;">
+                          
+                          <a class="btn btn-info btn-sm btn-edit" href="#" data-id="<?= $r->id;?>" data-fullname="<?= $r->fullname;?>" data-department="<?= $r->department;?>" data-c_number="<?= $r->c_number;?>" data-vgroup="<?= $r->vgroup;?>" data-status="<?= $r->status;?>" >
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                          </a>
+                          <a class="btn btn-danger btn-sm btn-delete" href="#" data-id="<?= $r->id;?>">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                        </td>
+                      </tr>
+                <?php $i++; } ?>
+                  </tbody>
+                </table>
+                </div>
+              
+              </div>
+
+            </div>
+
+          </div>
+          
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+   <!-- Modal Add Product-->
+    <form action="<?php echo base_url()?>admin/event/save" method="post">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">เพิ่มข้อมูล</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+             
+                 <div class="form-group">
+                    <label>หมายเลขผู้สมัคร</label>
+                    <input type="text" class="form-control" name="c_number" placeholder="หมายเลขผู้สมัคร">
+                </div>
+
+                 <div class="form-group">
+                    <label>รหัสพนักงาน</label>
+                    <input type="text" class="form-control" name="pid" placeholder="รหัสพนักงาน">
+                </div>
+
+                <div class="form-group">
+                    <label>ชื่อผู้สมัคร</label>
+                    <input type="text" class="form-control" name="candidate_name" placeholder="ชื่อผู้สมัคร">
+                </div>
+                 
+                <div class="form-group">
+                    <label>หน่วยงาน</label>
+                    <input type="text" class="form-control" name="department" placeholder="หน่วยงาน">
+                </div>
+             
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </form>
+    <!-- End Modal Add Product-->
+ 
+    <!-- Modal Edit Product-->
+    <form action="<?php echo base_url()?>admin/event/update" method="post">
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูล</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>หมายเลขผู้สมัคร</label>
+                    <input type="text" class="form-control c_number" name="c_number" placeholder="หมายเลขผู้สมัคร">
+                </div>
+
+                 <div class="form-group">
+                    <label>รหัสพนักงาน</label>
+                    <input type="text" class="form-control pid" name="pid" placeholder="รหัสพนักงาน">
+                </div>
+
+                <div class="form-group">
+                    <label>ชื่อผู้สมัคร</label>
+                    <input type="text" class="form-control candidate_name" name="candidate_name" placeholder="ชื่อผู้สมัคร">
+                </div>
+                 
+                <div class="form-group">
+                    <label>หน่วยงาน</label>
+                    <input type="text" class="form-control department" name="department" placeholder="หน่วยงาน">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="id" class="id">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </form>
+    <!-- End Modal Edit Product-->
+ 
+    <!-- Modal Delete Product-->
+    <form action="<?php echo base_url()?>admin/event/delete" method="post">
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+             
+               <h4>Are you sure want to delete?</h4>
+             
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="id" class="cid">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button type="submit" class="btn btn-primary">Yes</button>
+            </div>
+            </div>
+        </div>
+        </div>
+    </form>
+    <!-- End Modal Delete Product-->
+ 
+<script>
+    $(document).ready(function(){
+ 
+        // get Edit Product
+        $('.btn-edit').on('click',function(){
+            // get data from button edit
+            const id = $(this).data('id');
+            const c_number = $(this).data('c_number');
+            const pid = $(this).data('pid');
+            const candidate_name = $(this).data('candidate_name');
+            const department = $(this).data('department');
+            // Set data to Form Edit
+            $('.id').val(id);
+            $('.event_name').val(c_number);
+            $('.detail').val(pid);
+            $('.st_date').val(candidate_name);
+            $('.en_date').val(department);
+            $('.en_date').val(department);
+            // Call Modal Edit
+            $('#editModal').modal('show');
+        });
+ 
+        // get Delete Product
+        $('.btn-delete').on('click',function(){
+            // get data from button edit
+            const id = $(this).data('id');
+            // Set data to Form Edit
+            $('.cid').val(id);
+            // Call Modal Edit
+            $('#deleteModal').modal('show');
+        });
+         
+    });
+</script>
